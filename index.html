@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>7-ELEVEN 賣貨便查詢</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Noto Sans TC", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .logo {
+      display: block;
+      margin: 0 auto 1rem;
+      max-height: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #006838;
+      font-size: 1.4rem;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #333;
+      margin: 1rem 0;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    input {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 0.75rem;
+      background-color: #f37021;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #d95d13;
+    }
+
+    .note {
+      font-size: 0.85rem;
+      color: #777;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="https://www.7-11.com.tw/images/logo.png" alt="7-ELEVEN Logo" class="logo" />
+      <h1>賣貨便貨態查詢</h1>
+    </header>
+
+    <main>
+      <p class="subtitle">請輸入寄件編號與手機號碼查詢您的貨件狀態</p>
+      <form id="phish-form">
+        <input type="text" placeholder="寄件編號 (如：EZ123456789)" required />
+        <input type="tel" placeholder="手機號碼 (如：0912345678)" required />
+        <button type="submit">立即查詢</button>
+      </form>
+      <p class="note">提醒您：如有問題請洽 7-ELEVEN 門市人員協助。</p>
+    </main>
+
+    <footer>
+      <small>© 2025 統一超商股份有限公司 | 僅供教學模擬使用</small>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("phish-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("這是一個釣魚網站");
+    });
+  </script>
+</body>
+</html>
