@@ -59,6 +59,12 @@
       font-size: 1rem;
     }
 
+    /* 新增：错误状态样式 */
+    input.error {
+      border-color: #e74c3c;
+      background-color: #fdeded;
+    }
+
     button {
       padding: 0.75rem;
       background-color: #f37021;
@@ -80,6 +86,14 @@
       text-align: center;
     }
 
+    /* 新增：错误提示样式 */
+    .error-message {
+      color: #e74c3c;
+      font-size: 0.8rem;
+      margin-top: -0.5rem;
+      display: none;
+    }
+
     footer {
       margin-top: 2rem;
       text-align: center;
@@ -98,8 +112,27 @@
     <main>
       <p class="subtitle">請輸入寄件編號與手機號碼查詢您的貨件狀態</p>
       <form id="phish-form">
-        <input type="text" placeholder="寄件編號 (如：EZ123456789)" required />
-        <input type="tel" placeholder="手機號碼 (如：0912345678)" required />
+        <input 
+          type="text" 
+          id="tracking-number" 
+          placeholder="寄件編號 (如：EZ123456789)" 
+          required 
+          pattern="[A-Z]{2}\d{9}"
+          title="請輸入兩個大寫字母+9位數字 (如：EZ123456789)"
+        />
+        <div class="error-message" id="tracking-error">格式錯誤！需為兩個大寫字母+9位數字 (如：EZ123456789)</div>
+        
+        <input 
+          type="tel" 
+          id="phone" 
+          placeholder="手機號碼 (如：0912345678)" 
+          required 
+          pattern="09\d{8}"
+          title="請輸入10位數字且以09開頭 (如：0912345678)"
+          maxlength="10"
+        />
+        <div class="error-message" id="phone-error">格式錯誤！需為10位數字且以09開頭 (如：0912345678)</div>
+        
         <button type="submit">立即查詢</button>
       </form>
       <p class="note">提醒您：如有問題請洽 7-ELEVEN 門市人員協助。</p>
@@ -113,7 +146,46 @@
   <script>
     document.getElementById("phish-form").addEventListener("submit", function (e) {
       e.preventDefault();
-      alert("這是一個釣魚網站");
+      
+      // 获取元素
+      const trackingInput = document.getElementById('tracking-number');
+      const phoneInput = document.getElementById('phone');
+      const trackingError = document.getElementById('tracking-error');
+      const phoneError = document.getElementById('phone-error');
+      
+      // 重置错误状态
+      trackingInput.classList.remove('error');
+      phoneInput.classList.remove('error');
+      trackingError.style.display = 'none';
+      phoneError.style.display = 'none';
+      
+      let isValid = true;
+      
+      // 验证寄件编号 (格式: 两个大写字母+9位数字)
+      const trackingPattern = /^[A-Z]{2}\d{9}$/;
+      if (!trackingPattern.test(trackingInput.value.trim())) {
+        trackingInput.classList.add('error');
+        trackingError.style.display = 'block';
+        isValid = false;
+      }
+      
+      // 验证电话号码 (格式: 09开头+8位数字)
+      const phonePattern = /^09\d{8}$/;
+      if (!phonePattern.test(phoneInput.value.trim())) {
+        phoneInput.classList.add('error');
+        phoneError.style.display = 'block';
+        isValid = false;
+      }
+      
+      // 如果验证通过，显示钓鱼提示
+      if (isValid) {
+        alert("這是一個釣魚網站");
+      }
+    });
+
+    // 添加输入限制：电话号码只能输入数字
+    document.getElementById('phone').addEventListener('input', function(e) {
+      this.value = this.value.replace(/\D/g, '');
     });
   </script>
 </body>
